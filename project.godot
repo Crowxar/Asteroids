@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="ChangeProjectName"
+run/main_scene="uid://diuk4drxe2wsi"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+Console="*res://addons/gameconsole/console/console.gd"
+AssetManager="*res://00_Core/Managers/AssetManager.gd"
+ConfigFileHandler="*res://00_Core/Managers/ConfigFileHandler.gd"
+GameManager="*res://00_Core/Managers/GameManager.gd"
+SceneManager="*res://00_Core/Managers/SceneManager.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+window/size/always_on_top=true
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/TweenAnimator/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/gameconsole/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

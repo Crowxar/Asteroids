@@ -1,0 +1,70 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://lsxyyvxmbjpw"]
+
+[sub_resource type="SystemFont" id="SystemFont_6dhoy"]
+font_names = PackedStringArray("Impact")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixa3g"]
+border_width_top = 6
+border_width_bottom = 6
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2kdak"]
+bg_color = Color(0.823529, 0.67451, 0.0862745, 1)
+border_width_bottom = 8
+border_color = Color(0.545733, 0.444199, 0.0470409, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6dhoy"]
+bg_color = Color(0.823529, 0.67451, 0.0862745, 1)
+border_width_bottom = 15
+border_color = Color(0.545733, 0.444199, 0.0470409, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i8o2"]
+bg_color = Color(0.823529, 0.67451, 0.0862745, 1)
+border_width_top = 12
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="SystemFont" id="SystemFont_ixa3g"]
+font_names = PackedStringArray("Impact")
+
+[resource]
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 12
+Button/font_sizes/font_size = 25
+Button/fonts/font = SubResource("SystemFont_6dhoy")
+Button/styles/disabled = SubResource("StyleBoxFlat_ixa3g")
+Button/styles/hover = SubResource("StyleBoxFlat_2kdak")
+Button/styles/normal = SubResource("StyleBoxFlat_6dhoy")
+Button/styles/pressed = SubResource("StyleBoxFlat_5i8o2")
+Label/fonts/font = SubResource("SystemFont_ixa3g")
