@@ -1,62 +1,161 @@
-[gd_scene load_steps=3 format=3 uid="uid://g8qmlqcgd0x7"]
+[gd_scene load_steps=4 format=3 uid="uid://g8qmlqcgd0x7"]
 
 [ext_resource type="Script" uid="uid://cr72vyfoh1tal" path="res://01_UserInterface/InGameHud/player_ui.gd" id="1_0fw0y"]
 [ext_resource type="Texture2D" uid="uid://ca65ljjjseark" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a1.png" id="1_kn3sa"]
+[ext_resource type="Theme" uid="uid://lsxyyvxmbjpw" path="res://01_UserInterface/Themes/MenuMenuTheme.tres" id="3_hqacd"]
 
-[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("life_one", "life_two", "life_three", "score_label")]
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("life_one", "life_two", "life_three", "score_label", "high_label", "end_over_high_score", "end_over_current_score", "new_high_score_label", "end_restart_button", "end_main_menu_button", "in_game_ui", "game_over_ui")]
 script = ExtResource("1_0fw0y")
-life_one = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/LifeOne")
-life_two = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/LifeTwo")
-life_three = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/LifeThree")
-score_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2/PanelContainer/ScoreLabel")
+life_one = NodePath("inGameUI/VBoxContainer/InGameUI/PanelContainer2/HBoxContainer/LifeOne")
+life_two = NodePath("inGameUI/VBoxContainer/InGameUI/PanelContainer2/HBoxContainer/LifeTwo")
+life_three = NodePath("inGameUI/VBoxContainer/InGameUI/PanelContainer2/HBoxContainer/LifeThree")
+score_label = NodePath("inGameUI/VBoxContainer/InGameUI/PanelContainer/HighScoreHBox/VBoxContainer/ScoreLabel")
+high_label = NodePath("inGameUI/VBoxContainer/InGameUI/PanelContainer/HighScoreHBox/VBoxContainer/HighScoreLabel")
+end_over_high_score = NodePath("GameOverUI/PanelContainer/MarginContainer/VBoxContainer/HighScoreVbox/HBoxContainer2/HighScoreLabel")
+end_over_current_score = NodePath("GameOverUI/PanelContainer/MarginContainer/VBoxContainer/HighScoreVbox/HBoxContainer3/ScoreValueLabel")
+new_high_score_label = NodePath("GameOverUI/PanelContainer/MarginContainer/VBoxContainer/NewHighScoreLabel")
+end_restart_button = NodePath("GameOverUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Restart")
+end_main_menu_button = NodePath("GameOverUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MainMenu")
+in_game_ui = NodePath("inGameUI")
+game_over_ui = NodePath("GameOverUI")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="inGameUI" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="inGameUI"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="InGameUI" type="HBoxContainer" parent="inGameUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="inGameUI/VBoxContainer/InGameUI"]
+layout_mode = 2
+
+[node name="HighScoreHBox" type="HBoxContainer" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer/HighScoreHBox"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer/HighScoreHBox/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Score: 0"
+
+[node name="HighScoreLabel" type="Label" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer/HighScoreHBox/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "Best: 0"
+
+[node name="CurrentScoreHbox" type="HBoxContainer" parent="inGameUI/VBoxContainer/InGameUI"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+[node name="PanelContainer2" type="PanelContainer" parent="inGameUI/VBoxContainer/InGameUI"]
 layout_mode = 2
 
-[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2/PanelContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 46
-text = "Score: 0"
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 0
+alignment = 2
 
-[node name="LifeOne" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+[node name="LifeOne" type="TextureRect" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_kn3sa")
 expand_mode = 2
 
-[node name="LifeTwo" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+[node name="LifeTwo" type="TextureRect" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_kn3sa")
 expand_mode = 2
 
-[node name="LifeThree" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+[node name="LifeThree" type="TextureRect" parent="inGameUI/VBoxContainer/InGameUI/PanelContainer2/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_kn3sa")
 expand_mode = 2
+
+[node name="GameOverUI" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme = ExtResource("3_hqacd")
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOverUI"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverUI/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+
+[node name="GameOverHbox" type="HBoxContainer" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/GameOverHbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 106
+text = "Game Over"
+
+[node name="NewHighScoreLabel" type="Label" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "New High Score!"
+horizontal_alignment = 1
+
+[node name="HighScoreVbox" type="VBoxContainer" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/HighScoreVbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="ScoreValueLabel" type="Label" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/HighScoreVbox/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Your Score: 0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/HighScoreVbox"]
+layout_mode = 2
+alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/HighScoreVbox/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "High Score: 0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 45
+
+[node name="Restart" type="Button" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="MainMenu" type="Button" parent="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return to Menu"
+
+[connection signal="pressed" from="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="GameOverUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

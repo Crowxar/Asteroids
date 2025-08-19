@@ -1,0 +1,62 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://ck6qfj52mqbvd"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_xsiq6"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_hbncd"]
+parameter_name = "Blink_Color"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_h55fr"]
+parameter_name = "Blink"
+qualifier = 2
+hint = 1
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_4xq2o"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, 0.5]
+op_type = 4
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform vec4 Blink_Color : source_color;
+instance uniform float Blink : hint_range(0.0, 1.0);
+
+
+
+void fragment() {
+// Input:2
+	vec4 n_out2p0 = COLOR;
+
+
+// ColorParameter:3
+	vec4 n_out3p0 = Blink_Color;
+
+
+// FloatParameter:4
+	float n_out4p0 = Blink;
+
+
+// Mix:5
+	vec3 n_out5p0 = mix(vec3(n_out2p0.xyz), vec3(n_out3p0.xyz), n_out4p0);
+
+
+// Output:0
+	COLOR.rgb = n_out5p0;
+
+
+}
+"
+graph_offset = Vector2(-115.499, 55.0567)
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(820, 40)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_xsiq6")
+nodes/fragment/2/position = Vector2(40, -60)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_hbncd")
+nodes/fragment/3/position = Vector2(40, 80)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatParameter_h55fr")
+nodes/fragment/4/position = Vector2(40, 300)
+nodes/fragment/5/node = SubResource("VisualShaderNodeMix_4xq2o")
+nodes/fragment/5/position = Vector2(480, 40)
+nodes/fragment/connections = PackedInt32Array(3, 0, 5, 1, 4, 0, 5, 2, 2, 0, 5, 0, 5, 0, 0, 0)

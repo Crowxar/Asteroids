@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cktfkbque0mbc"]
+
+[ext_resource type="PackedScene" uid="uid://b7t7kamv26owm" path="res://03_Entities/Asteroids/Scene/asteroid.tscn" id="1_0ktw7"]
+[ext_resource type="Script" uid="uid://kc23hyteyqb2" path="res://02_Scenes/Main/game.gd" id="1_ylxln"]
+[ext_resource type="PackedScene" uid="uid://dhdrcpugjst4g" path="res://03_Entities/PlayerShip/Scenes/player_ship.tscn" id="2_ylxln"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a0gob"]
+radius = 114.158
+
+[node name="Testing" type="Node2D" node_paths=PackedStringArray("safe_zone", "start_position")]
+script = ExtResource("1_ylxln")
+safe_zone = NodePath("Area2D/CollisionShape2D")
+start_position = NodePath("Marker2D")
+
+[node name="Asteroid" parent="." instance=ExtResource("1_0ktw7")]
+position = Vector2(537, 225)
+
+[node name="PlayerShip" parent="." instance=ExtResource("2_ylxln")]
+position = Vector2(537, 427)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(537, 427)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(537, 427)
+shape = SubResource("CircleShape2D_a0gob")

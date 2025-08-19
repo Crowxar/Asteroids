@@ -8,11 +8,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_j8s55"]
 radius = 150.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("safe_zone", "start_position")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("safe_zone", "start_position", "camera")]
 script = ExtResource("1_bfft3")
-safe_zone = NodePath("SafeZone/CollisionShape2D")
+safe_zone = NodePath("PlayerShip/SafeZone/CollisionShape2D")
 start_position = NodePath("StartPosition")
-difficulty = 2
+difficulty = 15
+camera = NodePath("Camera2D")
 
 [node name="Paul-volkmer-qVotvbsuMC-unsplash" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -23,17 +24,33 @@ texture = ExtResource("3_1vgnx")
 position = Vector2(640, 550)
 start_position = NodePath("../StartPosition")
 
-[node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(640, 550)
-
-[node name="SafeZone" type="Area2D" parent="."]
-position = Vector2(640, 550)
+[node name="SafeZone" type="Area2D" parent="PlayerShip"]
 collision_layer = 0
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerShip/SafeZone"]
 shape = SubResource("CircleShape2D_j8s55")
 
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(640, 550)
+
 [node name="PlayerUI" parent="." instance=ExtResource("4_fjcgd")]
+
+[node name="ExtraSpawns" type="Node" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="ExtraSpawns"]
+position = Vector2(24, 694)
+
+[node name="Marker2D2" type="Marker2D" parent="ExtraSpawns"]
+position = Vector2(29, 34)
+
+[node name="Marker2D3" type="Marker2D" parent="ExtraSpawns"]
+position = Vector2(1251, 29)
+
+[node name="Marker2D4" type="Marker2D" parent="ExtraSpawns"]
+position = Vector2(1246, 689)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
 
 [connection signal="Lost_Health" from="PlayerShip" to="PlayerUI" method="_on_player_ship_lost_health"]

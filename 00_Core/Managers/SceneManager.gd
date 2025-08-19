@@ -1,9 +1,13 @@
 extends Node
 
+var menu_dict: Dictionary = {
+	"main menu": "uid://diuk4drxe2wsi",
+	"main game": "uid://dowm5jt4rtx0d",
+}
 
 var scene_dict: Dictionary = {
 	"bullet": preload("uid://bysnr1qehew8s"),
-	"asteroid": preload("uid://b7t7kamv26owm")
+	"asteroid": preload("uid://b7t7kamv26owm"),
 }
 
 var asteroid_sprites: Dictionary = {

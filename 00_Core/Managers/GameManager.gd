@@ -6,21 +6,55 @@ var player_health: int = 3
 var asteroid_count: int = 10
 var spawn_pos: Vector2
 var difficulty_selection = DIFFICULTY.EASY
-var player_score: int = 0
 
+var player_score: int
+var player_high_score: int
+var original_high_score: int
+
+var new_high_score: bool = false
+
+var config_handler
+var ui_scene
+
+var main
+var viewport
+var safe_zone
+var start_position
 
 enum DIFFICULTY {
-	EASY,
-	NORMAL,
-	HARD,
+	EASY = 5,
+	NORMAL = 15,
+	HARD = 30,
 }
 
+enum ASTEROID_COUNT {
+	EASY = 5,
+	NORMAL = 15,
+	HARD = 30,
+}
 
+func _ready() -> void:
+	original_high_score = config_handler.load_high_score()
+	player_health = 3
+	player_score = 0
+	player_high_score = 0
+	
+	
 func lose_health():
 	player_health -= 1
 
+func end_game():
+	if player_high_score > original_high_score:
+		original_high_score = player_high_score
+		new_high_score = true
+		config_handler.save_high_score(player_high_score)
+	ui_scene.end_game_screen(new_high_score)
+
+
 func add_score():
 	player_score += 1
+	if player_score >= player_high_score:
+		player_high_score = player_score
 	emit_signal("score_update")
 
 func spawn_vfx(vfxToSpawn: Resource, position: Vector2, rotation: float = 0):
@@ -32,39 +66,9 @@ func spawn_vfx(vfxToSpawn: Resource, position: Vector2, rotation: float = 0):
 	return vfx_instance
 
 
-func spawn_asteroid(position: Vector2, size = ASTEROID.ASTEROID_SIZES.LARGE):
-	var asteroid_instance = SceneManager.scene_dict["asteroid"].instantiate()
-	asteroid_instance.global_position = position
-	asteroid_instance.asteroid_size = size
-
-	get_tree().get_root().call_deferred("add_child", asteroid_instance)
-
-
-func start_game(viewport, safe_zone, start_position):
-	match difficulty_selection:
-		DIFFICULTY.EASY:
-			asteroid_count = 5
-		DIFFICULTY.NORMAL:
-			asteroid_count = 15
-		DIFFICULTY.HARD:
-			asteroid_count = 30
-		
-	for asteroid in asteroid_count:
-		spawn_pos = select_spawn(viewport, safe_zone, start_position)
-		spawn_asteroid(spawn_pos, ASTEROID.ASTEROID_SIZES.LARGE)
-
-
-func select_spawn(viewport, safe_zone, start_position):
-	var max_attempts = 100  # Prevent infinite loops
-	var attempts = 0
-	while attempts < max_attempts:
-		spawn_pos = Vector2(
-				randf_range(0, viewport.x),
-				randf_range(0, viewport.y)
-			)
-		if spawn_pos.distance_to(start_position.position) > safe_zone.shape.radius:
-			return spawn_pos
-
-		attempts += 1
-	print_debug("Error Spawning Asteroid")
-	return Vector2.ZERO
+func spawn_asteroid(global_position, ASTEROID_SIZE, debug):
+	if global_position:
+		main.spawn_asteroid(global_position, ASTEROID_SIZE, debug)
+	else:
+		spawn_pos = main.select_spawn(viewport, safe_zone, start_position)
+		main.spawn_asteroid(spawn_pos, ASTEROID_SIZE, debug)
