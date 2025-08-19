@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dowm5jt4rtx0d"]
+
+[ext_resource type="Script" uid="uid://kc23hyteyqb2" path="res://02_Scenes/Main/game.gd" id="1_bfft3"]
+[ext_resource type="PackedScene" uid="uid://dhdrcpugjst4g" path="res://03_Entities/PlayerShip/Scenes/player_ship.tscn" id="1_fjmom"]
+[ext_resource type="Texture2D" uid="uid://bnmt2u6co8per" path="res://02_Scenes/Main/paul-volkmer-qVotvbsuM_c-unsplash.jpg" id="3_1vgnx"]
+[ext_resource type="PackedScene" uid="uid://g8qmlqcgd0x7" path="res://01_UserInterface/InGameHud/player_ui.tscn" id="4_fjcgd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j8s55"]
+radius = 150.0
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("safe_zone", "start_position")]
+script = ExtResource("1_bfft3")
+safe_zone = NodePath("SafeZone/CollisionShape2D")
+start_position = NodePath("StartPosition")
+difficulty = 2
+
+[node name="Paul-volkmer-qVotvbsuMC-unsplash" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.234604, 0.198238)
+texture = ExtResource("3_1vgnx")
+
+[node name="PlayerShip" parent="." node_paths=PackedStringArray("start_position") instance=ExtResource("1_fjmom")]
+position = Vector2(640, 550)
+start_position = NodePath("../StartPosition")
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(640, 550)
+
+[node name="SafeZone" type="Area2D" parent="."]
+position = Vector2(640, 550)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeZone"]
+shape = SubResource("CircleShape2D_j8s55")
+
+[node name="PlayerUI" parent="." instance=ExtResource("4_fjcgd")]
+
+[connection signal="Lost_Health" from="PlayerShip" to="PlayerUI" method="_on_player_ship_lost_health"]

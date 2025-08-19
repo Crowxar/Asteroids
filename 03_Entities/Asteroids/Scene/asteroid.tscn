@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7t7kamv26owm"]
+
+[ext_resource type="Script" uid="uid://cnaje603dk4h7" path="res://03_Entities/Asteroids/Script/asteroid.gd" id="1_teqic"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5c2c"]
+resource_local_to_scene = true
+
+[node name="Asteroid" type="Area2D" node_paths=PackedStringArray("collision_shape", "asteroid_sprite")]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_teqic")
+collision_shape = NodePath("CollisionShape2D")
+asteroid_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o5c2c")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

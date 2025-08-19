@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhdrcpugjst4g"]
+
+[ext_resource type="Texture2D" uid="uid://ca65ljjjseark" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a1.png" id="1_fo0dw"]
+[ext_resource type="Script" uid="uid://8wbn1il1d4v3" path="res://03_Entities/PlayerShip/Scripts/player_ship.gd" id="1_y65bv"]
+[ext_resource type="Texture2D" uid="uid://dxkfe22a3wmly" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a1.png" id="3_bnc4l"]
+[ext_resource type="Texture2D" uid="uid://b8awwg6va4ris" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a2.png" id="3_thvs2"]
+[ext_resource type="Texture2D" uid="uid://6o8n6lqghhf" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a2.png" id="4_og14x"]
+[ext_resource type="Texture2D" uid="uid://g0v5h5u8jmpl" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a3.png" id="4_swvvl"]
+[ext_resource type="Texture2D" uid="uid://0p1p3jn5rc3h" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a3.png" id="5_ukcdw"]
+[ext_resource type="Texture2D" uid="uid://ciujxqjes1ft" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a4.png" id="6_2gc5d"]
+[ext_resource type="Texture2D" uid="uid://b6huishqyitt5" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a5.png" id="7_8w0ct"]
+[ext_resource type="Texture2D" uid="uid://blglp1vvsnpgw" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a6.png" id="8_fso8n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y65bv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fo0dw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bnc4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_og14x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ukcdw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2gc5d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8w0ct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_fso8n")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fo0dw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_thvs2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_swvvl")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fo0dw"]
+size = Vector2(14, 32)
+
+[node name="PlayerShip" type="Area2D" node_paths=PackedStringArray("shoot_point", "sprite_animation", "collision")]
+collision_mask = 4
+script = ExtResource("1_y65bv")
+shoot_point = NodePath("Marker2D")
+sprite_animation = NodePath("AnimatedSprite2D")
+collision = NodePath("CollisionShape2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y65bv")
+animation = &"explosion"
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fo0dw")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-12, -16, 24, 33)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

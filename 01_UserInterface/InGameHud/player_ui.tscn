@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://g8qmlqcgd0x7"]
+
+[ext_resource type="Script" uid="uid://cr72vyfoh1tal" path="res://01_UserInterface/InGameHud/player_ui.gd" id="1_0fw0y"]
+[ext_resource type="Texture2D" uid="uid://ca65ljjjseark" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a1.png" id="1_kn3sa"]
+
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("life_one", "life_two", "life_three", "score_label")]
+script = ExtResource("1_0fw0y")
+life_one = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/LifeOne")
+life_two = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/LifeTwo")
+life_three = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/LifeThree")
+score_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2/PanelContainer/ScoreLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "Score: 0"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="LifeOne" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_kn3sa")
+expand_mode = 2
+
+[node name="LifeTwo" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_kn3sa")
+expand_mode = 2
+
+[node name="LifeThree" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_kn3sa")
+expand_mode = 2
