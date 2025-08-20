@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="ChangeProjectName"
+config/name="Asteroids"
 run/main_scene="uid://diuk4drxe2wsi"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
