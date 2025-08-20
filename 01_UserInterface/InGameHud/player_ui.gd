@@ -35,7 +35,7 @@ func _on_player_ship_lost_health() -> void:
 
 func end_game_screen(new_high_score):
 	end_over_current_score.text = ("Your Score: %s " % str(GameManager.player_score))
-	end_over_high_score.text = ("High Score: %s " % str(GameManager.original_high_score))
+	end_over_high_score.text = ("High Score: %s " % str(GameManager.player_high_score))
 	in_game_ui.visible = false
 	game_over_ui.visible = true
 	if new_high_score:
@@ -44,13 +44,13 @@ func end_game_screen(new_high_score):
 
 func player_score_updated():
 	score_label.text = ("Score: %s " % str(GameManager.player_score))
-	if GameManager.player_high_score > GameManager.original_high_score:
+	if GameManager.player_high_score >= GameManager.original_high_score:
 		high_label.text = ("Best: %s " % str(GameManager.player_high_score))
 
 
 
 func _on_restart_pressed() -> void:
-	get_tree().reload_current_scene()
+	GameManager.restart_game()
 
 
 func _on_main_menu_pressed() -> void:

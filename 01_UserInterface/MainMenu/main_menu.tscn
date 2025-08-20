@@ -1,23 +1,219 @@
-[gd_scene load_steps=4 format=3 uid="uid://diuk4drxe2wsi"]
+[gd_scene load_steps=26 format=3 uid="uid://diuk4drxe2wsi"]
 
 [ext_resource type="Script" uid="uid://cbkmxs7jr6y27" path="res://01_UserInterface/MainMenu/main_menu.gd" id="1_1chaj"]
 [ext_resource type="Theme" uid="uid://lsxyyvxmbjpw" path="res://01_UserInterface/Themes/MenuMenuTheme.tres" id="1_12cqk"]
 [ext_resource type="Texture2D" uid="uid://bnmt2u6co8per" path="res://02_Scenes/Main/paul-volkmer-qVotvbsuM_c-unsplash.jpg" id="2_gsdt6"]
+[ext_resource type="Texture2D" uid="uid://d2nkgmlgsgwm8" path="res://01_UserInterface/Assets/tilemap_packed.png" id="4_ifss8"]
+[ext_resource type="AudioStream" uid="uid://4lu6e4c5hgqk" path="res://01_UserInterface/Assets/rollover1.ogg" id="4_kxchn"]
+[ext_resource type="Texture2D" uid="uid://ccxyd3bdcxeoo" path="res://03_Entities/Asteroids/Assets/big-a.png" id="5_4yxyf"]
+[ext_resource type="AudioStream" uid="uid://b6ju75ytleus0" path="res://01_UserInterface/Assets/switch3.ogg" id="5_f4utg"]
+[ext_resource type="AudioStream" uid="uid://boxj47ap3x3x5" path="res://99_Scratch/Assets/Music/Nesquence.ogg" id="6_f4utg"]
+[ext_resource type="Texture2D" uid="uid://bt8h0y2x4yopt" path="res://03_Entities/Asteroids/Assets/med-a.png" id="6_puxpd"]
+[ext_resource type="Texture2D" uid="uid://cc0ud36m1gj76" path="res://03_Entities/Asteroids/Assets/small-a.png" id="7_la3k0"]
+[ext_resource type="Texture2D" uid="uid://fymvoycegd85" path="res://03_Entities/PlayerShip/Assets/ship-b/ship-b1.png" id="8_b6tv6"]
+[ext_resource type="Texture2D" uid="uid://ds0okrl8xhjxc" path="res://03_Entities/PlayerShip/Assets/ship-c/ship-c1.png" id="9_8jp2j"]
+[ext_resource type="Texture2D" uid="uid://bdh42jshnmk2v" path="res://03_Entities/PlayerShip/Assets/ship-d/ship-d1.png" id="10_jyll8"]
+[ext_resource type="Texture2D" uid="uid://b8awwg6va4ris" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a2.png" id="11_oevie"]
+[ext_resource type="Texture2D" uid="uid://g0v5h5u8jmpl" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a3.png" id="12_qwl01"]
+[ext_resource type="Texture2D" uid="uid://dxkfe22a3wmly" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a1.png" id="13_54i0f"]
+[ext_resource type="Texture2D" uid="uid://6o8n6lqghhf" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a2.png" id="14_8spma"]
+[ext_resource type="Texture2D" uid="uid://0p1p3jn5rc3h" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a3.png" id="15_idnnm"]
+[ext_resource type="Texture2D" uid="uid://ciujxqjes1ft" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a4.png" id="16_wy60i"]
+[ext_resource type="Texture2D" uid="uid://b6huishqyitt5" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a5.png" id="17_ebrbk"]
+[ext_resource type="Texture2D" uid="uid://blglp1vvsnpgw" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a6.png" id="18_xjv6y"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("new_game_button", "options_button", "quit_game_button", "sprite_background", "high_score_label")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_yr33b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_oevie")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qwl01")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_54i0f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_8spma")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_idnnm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_wy60i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ebrbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_xjv6y")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 12.0
+}]
+
+[sub_resource type="Animation" id="Animation_ynlh2"]
+resource_name = "new_animation"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/NewGameOption/ShipSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"default", &"explosion"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/NewGameOption/SmallAsteroid5:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(989, 617.5), Vector2(1171, 617.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/NewGameOption/SmallAsteroid5:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/NewGameOption/SmallAsteroid5:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MarginContainer/NewGameOption/ShipSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_h0vtj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/NewGameOption/ShipSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/NewGameOption/SmallAsteroid5:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(989, 617.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/NewGameOption/SmallAsteroid5:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/NewGameOption/SmallAsteroid5:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MarginContainer/NewGameOption/ShipSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1312y"]
+_data = {
+&"RESET": SubResource("Animation_h0vtj"),
+&"new_animation": SubResource("Animation_ynlh2")
+}
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("main_menu_vbox", "new_game_button", "quit_game_button", "sprite_background", "high_score_label", "button_rollover_sound", "button_click_sound", "new_game_vbox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_12cqk")
 script = ExtResource("1_1chaj")
-new_game_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/NewGameButton")
-options_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/OptionsButton")
-quit_game_button = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/QuitGameButton")
+main_menu_vbox = NodePath("MarginContainer/MainMenu")
+new_game_button = NodePath("MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/NewGameButton")
+quit_game_button = NodePath("MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/QuitGameButton")
 sprite_background = NodePath("MarginContainer/background")
-high_score_label = NodePath("MarginContainer/VBoxContainer/VBoxContainer2/HighScoreLabel")
+high_score_label = NodePath("MarginContainer/MainMenu/VBoxContainer2/HBoxContainer2/HighScoreLabel")
 rotation_speed = 0.05
+button_rollover_sound = NodePath("ButtonRolloverSound")
+button_click_sound = NodePath("ButtonClickSound")
+new_game_vbox = NodePath("MarginContainer/NewGameOption")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -37,31 +233,34 @@ rotation = 0.685072
 scale = Vector2(0.484075, 0.448914)
 texture = ExtResource("2_gsdt6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="MainMenu" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MainMenu"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="HighScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MainMenu/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HighScoreLabel" type="Label" parent="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("1_12cqk")
 theme_override_font_sizes/font_size = 36
 text = "High Score: 00"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MainMenu/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 90
 alignment = 1
 
-[node name="GameTitleLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="GameTitleLabel" type="Label" parent="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_12cqk")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -70,46 +269,272 @@ theme_override_font_sizes/font_size = 80
 text = "Asteroids"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 40
 
-[node name="NewGameButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("1_12cqk")
 text = "New Game"
 
-[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-theme = ExtResource("1_12cqk")
-disabled = true
-text = "Options"
-
-[node name="QuitGameButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="QuitGameButton" type="Button" parent="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("1_12cqk")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Quit Game"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainMenu"]
 layout_mode = 2
 size_flags_vertical = 8
 alignment = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MainMenu/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="VersionLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="VersionLabel" type="Label" parent="MarginContainer/MainMenu/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "Version 0.0.0"
+text = "Version 1.0.0"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[node name="NewGameOption" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NewGameOption"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NewGameOption/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Difficulty"
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/NewGameOption"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NewGameOption/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Controls" type="VBoxContainer" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 130
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Controls"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.509306, 0.667922, 1, 1)
+theme_override_font_sizes/font_size = 71
+text = "Controls"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Shoot your Weapon"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Turn the ship"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Accelerate"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="Easy" type="Button" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = " Easy "
+
+[node name="Medium" type="Button" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = "Medium"
+
+[node name="Hard" type="Button" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = "Hard"
+
+[node name="Back" type="Button" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Back"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetScore" type="Button" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Reset Score"
+
+[node name="Enemies" type="VBoxContainer" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 130
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Enemies"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.509306, 0.667922, 1, 1)
+theme_override_font_sizes/font_size = 71
+text = "Guide"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Enemies"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Break the Asteroids"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Enemies"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Collect powerups"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="MarginContainer/NewGameOption/Buttons/HBoxContainer/Enemies"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Survive"
+horizontal_alignment = 1
+
+[node name="SpaceSprite" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(159, 232)
+scale = Vector2(3, 3)
+texture = ExtResource("4_ifss8")
+region_enabled = true
+region_rect = Rect2(497, 225, 46, 14)
+
+[node name="KeyA" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(117.5, 416)
+scale = Vector2(3, 3)
+texture = ExtResource("4_ifss8")
+region_enabled = true
+region_rect = Rect2(289, 177, 13, 14)
+
+[node name="KeyD" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(197.5, 417)
+scale = Vector2(3, 3)
+texture = ExtResource("4_ifss8")
+region_enabled = true
+region_rect = Rect2(321, 177, 13, 14)
+
+[node name="KeyW" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(159, 598)
+scale = Vector2(3, 3)
+texture = ExtResource("4_ifss8")
+region_enabled = true
+region_rect = Rect2(289, 161, 13, 14)
+
+[node name="BigAsteroid" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(995, 220.5)
+texture = ExtResource("5_4yxyf")
+
+[node name="MediumAsteroid" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1072, 245.5)
+texture = ExtResource("6_puxpd")
+
+[node name="MediumAsteroid2" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1072, 194.5)
+texture = ExtResource("6_puxpd")
+
+[node name="SmallAsteroid" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1140, 236.5)
+texture = ExtResource("7_la3k0")
+
+[node name="SmallAsteroid2" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1140, 261.5)
+texture = ExtResource("7_la3k0")
+
+[node name="SmallAsteroid3" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1140, 207.5)
+texture = ExtResource("7_la3k0")
+
+[node name="SmallAsteroid4" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1140, 180.5)
+texture = ExtResource("7_la3k0")
+
+[node name="ShipA" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(995, 425.5)
+scale = Vector2(1.585, 1.585)
+texture = ExtResource("8_b6tv6")
+
+[node name="ShipB" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1083, 425.5)
+scale = Vector2(1.585, 1.585)
+texture = ExtResource("9_8jp2j")
+
+[node name="ShipC" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1170, 425.5)
+scale = Vector2(1.585, 1.585)
+texture = ExtResource("10_jyll8")
+
+[node name="SmallAsteroid5" type="Sprite2D" parent="MarginContainer/NewGameOption"]
+visible = false
+position = Vector2(989, 617.5)
+texture = ExtResource("7_la3k0")
+
+[node name="ShipSprite" type="AnimatedSprite2D" parent="MarginContainer/NewGameOption"]
+position = Vector2(1165, 609.5)
+sprite_frames = SubResource("SpriteFrames_yr33b")
+autoplay = "default"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/NewGameOption"]
+root_node = NodePath("../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_1312y")
+}
+autoplay = "new_animation"
+
+[node name="ButtonRolloverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_kxchn")
+volume_db = 24.0
+
+[node name="ButtonClickSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_f4utg")
+volume_db = 24.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_f4utg")
+autoplay = true
+
+[connection signal="mouse_entered" from="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/MainMenu/VBoxContainer2/HBoxContainer/VBoxContainer/VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2/Easy" to="." method="_on_easy_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2/Easy" to="." method="_on_easy_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2/Medium" to="." method="_on_medium_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2/Medium" to="." method="_on_medium_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2/Hard" to="." method="_on_hard_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer2/Hard" to="." method="_on_hard_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/Back" to="." method="_on_back_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/Back" to="." method="_on_back_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer/ResetScore" to="." method="_on_reset_score_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/NewGameOption/Buttons/HBoxContainer/VBoxContainer2/HBoxContainer/ResetScore" to="." method="_on_reset_score_pressed"]

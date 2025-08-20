@@ -30,6 +30,8 @@ const SHOOT_DURATION: float = 0.249
 @export var wrap_margin: float = 0
 @export var shield_sprite: Sprite2D
 @export var animation_player: AnimationPlayer
+@export var laser_sound: AudioStreamPlayer2D
+@export var explosion: AudioStreamPlayer2D
 
 @export var current_state : Ship_State = Ship_State.IDLE:
 	set(new_value):
@@ -97,8 +99,6 @@ func _process(delta: float) -> void:
 		TryToShoot()
 
 
-
-
 func TryToShoot():
 	if isShooting:
 		return
@@ -112,10 +112,17 @@ func TryToShoot():
 func Shoot():
 	var bulletToSpawn = preload("uid://bysnr1qehew8s")
 	GameManager.spawn_vfx(bulletToSpawn, shoot_point.global_position, rotation)
-
+	play_audio()
+	
+	
+func play_audio():
+	laser_sound.pitch_scale = randf_range(0.8, 1.3)
+	laser_sound.play()
 
 func _on_area_entered(area: Area2D) -> void:
 	current_state = Ship_State.HIT
+	explosion.play()
+	
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

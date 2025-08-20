@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bp2nahqkyks44"
-path="res://.godot/imported/Explosion.wav-4c00874aa4d8509c30ba3359ffdd004f.sample"
+path="res://.godot/imported/Explosion.wav-9dc4e957d539657d4c123a09ed30c0e0.sample"
 
 [deps]
 
-source_file="res://99_Scratch/Assets/Audio/Explosion.wav"
-dest_files=["res://.godot/imported/Explosion.wav-4c00874aa4d8509c30ba3359ffdd004f.sample"]
+source_file="res://03_Entities/Asteroids/Assets/Explosion.wav"
+dest_files=["res://.godot/imported/Explosion.wav-9dc4e957d539657d4c123a09ed30c0e0.sample"]
 
 [params]
 

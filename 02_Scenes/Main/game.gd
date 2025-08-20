@@ -2,7 +2,6 @@ extends Node2D
 
 @export var safe_zone: CollisionShape2D
 @export var start_position: Marker2D
-@export var difficulty: GameManager.DIFFICULTY = GameManager.DIFFICULTY.EASY
 @export var camera: Camera2D
 var camera_original_offset: Vector2
 var camera_shake_noise: FastNoiseLite
@@ -12,30 +11,42 @@ var asteroid_count: int
 
 
 func _ready() -> void:
-	GameManager.difficulty_selection = difficulty
-	camera_shake_noise = FastNoiseLite.new()
-	asteroid_count = difficulty
-	viewport = get_viewport_rect().size
 	GameManager.main = self
-	GameManager.viewport = viewport
-	GameManager.safe_zone = safe_zone
-	GameManager.start_position = start_position
+	var difficulty = GameManager.game_difficulty
+	camera_shake_noise = FastNoiseLite.new()
+	viewport = get_viewport_rect().size
+	match difficulty:
+		GameManager.DIFFICULTY.EASY:
+			asteroid_count = 5
+		GameManager.DIFFICULTY.NORMAL:
+			asteroid_count = 10
+		GameManager.DIFFICULTY.HARD:
+			asteroid_count = 15
 	start_game(viewport, safe_zone, start_position, asteroid_count)
-
-
-func spawn_asteroid(position, size = ASTEROID.ASTEROID_SIZES.LARGE, debug_mode: bool = false):
-	var asteroid_instance = SceneManager.scene_dict["asteroid"].instantiate()
-	asteroid_instance.global_position = position
-	asteroid_instance.asteroid_size = size
-	asteroid_instance.debug = debug_mode
-
-	get_tree().get_root().call_deferred("add_child", asteroid_instance)
 
 
 func start_game(viewport, safe_zone, start_position, asteroid_count = 1):
 	for asteroid in asteroid_count:
 		spawn_pos = select_spawn(viewport, safe_zone, start_position)
 		spawn_asteroid(spawn_pos, ASTEROID.ASTEROID_SIZES.LARGE)
+
+
+func spawn_asteroid(position, size = ASTEROID.ASTEROID_SIZES.LARGE, debug_mode: bool = false):
+	var asteroid_instance
+	match size:
+		ASTEROID.ASTEROID_SIZES.LARGE:
+			asteroid_instance = SceneManager.scene_dict["large asteroid"].instantiate()
+		ASTEROID.ASTEROID_SIZES.MEDIUM:
+			asteroid_instance = SceneManager.scene_dict["medium asteroid"].instantiate()
+		ASTEROID.ASTEROID_SIZES.SMALL:
+			asteroid_instance = SceneManager.scene_dict["small asteroid"].instantiate()
+	if not position:
+		position = select_spawn(viewport, safe_zone, start_position)
+	asteroid_instance.global_position = position
+	asteroid_instance.asteroid_size = size
+	asteroid_instance.debug = debug_mode
+
+	get_tree().get_current_scene().call_deferred("add_child", asteroid_instance)
 
 
 func select_spawn(viewport, safe_zone, start_position):
@@ -48,14 +59,12 @@ func select_spawn(viewport, safe_zone, start_position):
 			)
 		if spawn_pos.distance_to(start_position.position) > safe_zone.shape.radius:
 			return spawn_pos
-
 		attempts += 1
 	print_debug("Error Spawning Asteroid")
 	return Vector2.ZERO
 
 
 func camera_shake(intensity):
-
 	var camera_shake_tween = get_tree().create_tween()
 	camera_shake_tween.tween_method(update_camera_shake, intensity, 0.0, 0.5)
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dhdrcpugjst4g"]
+[gd_scene load_steps=23 format=3 uid="uid://dhdrcpugjst4g"]
 
 [ext_resource type="Texture2D" uid="uid://ca65ljjjseark" path="res://03_Entities/PlayerShip/Assets/ship-a/ship-a1.png" id="1_fo0dw"]
 [ext_resource type="Script" uid="uid://8wbn1il1d4v3" path="res://03_Entities/PlayerShip/Scripts/player_ship.gd" id="1_y65bv"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://b6huishqyitt5" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a5.png" id="7_8w0ct"]
 [ext_resource type="Texture2D" uid="uid://blglp1vvsnpgw" path="res://03_Entities/PlayerShip/Assets/Explosions/explosions-a6.png" id="8_fso8n"]
 [ext_resource type="Texture2D" uid="uid://cdvsxr5sexpjb" path="res://03_Entities/PlayerShip/Assets/Shield.png" id="12_ukcdw"]
+[ext_resource type="AudioStream" uid="uid://bai28wk1xbx3c" path="res://03_Entities/PlayerShip/Assets/Laser_Shoot.wav" id="13_2gc5d"]
+[ext_resource type="AudioStream" uid="uid://bp2nahqkyks44" path="res://03_Entities/Asteroids/Assets/Explosion.wav" id="14_8w0ct"]
 
 [sub_resource type="Shader" id="Shader_ukcdw"]
 code = "shader_type canvas_item;
@@ -149,7 +151,7 @@ _data = {
 &"RESET": SubResource("Animation_ukcdw")
 }
 
-[node name="PlayerShip" type="Area2D" node_paths=PackedStringArray("shoot_point", "sprite_animation", "collision", "shield_sprite", "animation_player")]
+[node name="PlayerShip" type="Area2D" node_paths=PackedStringArray("shoot_point", "sprite_animation", "collision", "shield_sprite", "animation_player", "laser_sound", "explosion")]
 material = SubResource("ShaderMaterial_2gc5d")
 collision_mask = 4
 script = ExtResource("1_y65bv")
@@ -158,6 +160,8 @@ sprite_animation = NodePath("AnimatedSprite2D")
 collision = NodePath("CollisionShape2D")
 shield_sprite = NodePath("Shield")
 animation_player = NodePath("AnimationPlayer")
+laser_sound = NodePath("LaserSound")
+explosion = NodePath("Explosion")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_8w0ct")
@@ -183,6 +187,12 @@ libraries = {
 modulate = Color(1, 1, 1, 0.882353)
 scale = Vector2(3, 3)
 texture = ExtResource("12_ukcdw")
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_2gc5d")
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_8w0ct")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

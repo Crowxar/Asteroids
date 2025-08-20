@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1ofkuknf3v2x"]
+
+[ext_resource type="Script" uid="uid://cnaje603dk4h7" path="res://03_Entities/Asteroids/Script/asteroid.gd" id="1_174so"]
+[ext_resource type="PackedScene" uid="uid://4akcfkcaswu1" path="res://03_Entities/Asteroids/Scene/explosion_particles.tscn" id="1_uha37"]
+[ext_resource type="Texture2D" uid="uid://bt8h0y2x4yopt" path="res://03_Entities/Asteroids/Assets/med-a.png" id="3_duynr"]
+[ext_resource type="AudioStream" uid="uid://bp2nahqkyks44" path="res://03_Entities/Asteroids/Assets/Explosion.wav" id="4_duynr"]
+
+[sub_resource type="Curve" id="Curve_42qpk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.433155, 0.876405), -1.08058, -1.08058, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kft3n"]
+curve = SubResource("Curve_42qpk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_174so"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 1.2
+radial_velocity_min = 115.0
+radial_velocity_max = 355.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 100.0
+radial_accel_max = 100.0
+scale_min = 2.0
+scale_max = 4.0
+alpha_curve = SubResource("CurveTexture_kft3n")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7k0xx"]
+resource_local_to_scene = true
+radius = 14.0
+
+[node name="MediumAsteroid" type="Area2D" node_paths=PackedStringArray("collision_shape", "asteroid_sprite", "explosion_particles", "explosion_audio")]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_174so")
+collision_shape = NodePath("CollisionShape2D")
+asteroid_sprite = NodePath("Sprite2D")
+explosion_particles = NodePath("ExplosionParticles2")
+asteroid_size = 1
+explosion_audio = NodePath("AudioStreamPlayer2D")
+
+[node name="ExplosionParticles2" parent="." instance=ExtResource("1_uha37")]
+process_material = SubResource("ParticleProcessMaterial_174so")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_duynr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7k0xx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_duynr")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

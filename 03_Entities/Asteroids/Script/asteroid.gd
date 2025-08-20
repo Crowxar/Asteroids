@@ -7,6 +7,7 @@ class_name ASTEROID
 @export var asteroid_size: = ASTEROID_SIZES.LARGE
 @export var wrap_margin: float = 0
 @export var debug: bool = false
+@export var explosion_audio: AudioStreamPlayer2D
 
 
 var particle_amount = 3
@@ -36,11 +37,14 @@ var max_speed := 1
 var rotation_factor := 0.02
 var screen_size := Vector2.ZERO
 
-var astroid_dict = SceneManager.asteroid_sprites
+var large_astroid_dict = SceneManager.large_asteroid_sprites
+var medium_astroid_dict = SceneManager.medium_asteroid_sprites
+var small_astroid_dict = SceneManager.small_asteroid_sprites
+
 var direction:= Vector2.ZERO
-var BigAsteroidSprites = [astroid_dict["Large A"], astroid_dict["Large B"], astroid_dict["Large C"]]
-var MediumAsteroidSprites = [astroid_dict["Medium A"], astroid_dict["Medium B"], astroid_dict["Medium C"]]
-var SmallAsteroidSprites = [astroid_dict["Small A"], astroid_dict["Small B"], astroid_dict["Small C"]]
+var large_asteroid_sprites = [large_astroid_dict["Large A"], large_astroid_dict["Large B"], large_astroid_dict["Large C"]]
+var medium_asteroid_sprites = [medium_astroid_dict["Medium A"], medium_astroid_dict["Medium B"], medium_astroid_dict["Medium C"]]
+var small_asteroid_sprites = [small_astroid_dict["Small A"], small_astroid_dict["Small B"], small_astroid_dict["Small C"]]
 
 func _ready() -> void:
 	explosion_particles.finished.connect(_clear_particles)
@@ -53,16 +57,11 @@ func _ready() -> void:
 	# Set the sprite
 	match asteroid_size:
 		ASTEROID_SIZES.LARGE:
-			collision_shape.shape.radius = RADIUS.LARGE
-			asteroid_sprite.texture = BigAsteroidSprites[randi() % BigAsteroidSprites.size()]
+			asteroid_sprite.texture = large_asteroid_sprites[randi() % large_asteroid_sprites.size()]
 		ASTEROID_SIZES.MEDIUM:
-			collision_shape.shape.radius = RADIUS.MEDIUM
-			asteroid_sprite.texture = MediumAsteroidSprites[randi() % MediumAsteroidSprites.size()]
+			asteroid_sprite.texture = medium_asteroid_sprites[randi() % medium_asteroid_sprites.size()]
 		ASTEROID_SIZES.SMALL:
-			collision_shape.shape.radius = RADIUS.SMALL
-			asteroid_sprite.texture = SmallAsteroidSprites[randi() % SmallAsteroidSprites.size()]
-			
-	
+			asteroid_sprite.texture = small_asteroid_sprites[randi() % small_asteroid_sprites.size()]
 
 
 func _process(_delta: float) -> void:
@@ -74,7 +73,7 @@ func _process(_delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.name != "PlayerShip":
 		area.queue_free()
-	asteroid_hit()
+		asteroid_hit()
 
 func _clear_particles():
 	queue_free()
@@ -95,21 +94,29 @@ func emit_particles():
 func asteroid_hit():
 	collision_shape.queue_free()
 	asteroid_sprite.visible = false
+	play_audio()
 	emit_particles()
-	GameManager.add_score()
 	match asteroid_size:
 		ASTEROID_SIZES.LARGE:
+			GameManager.add_score(1)
 			GameManager.main.camera_shake(camera_shake_intensity * SCALE.LARGE)
-			GameManager.spawn_asteroid(global_position, ASTEROID_SIZES.MEDIUM, debug)
-			GameManager.spawn_asteroid(global_position, ASTEROID_SIZES.MEDIUM, debug)
+			GameManager.main.spawn_asteroid(global_position, ASTEROID_SIZES.MEDIUM, debug)
+			GameManager.main.spawn_asteroid(global_position, ASTEROID_SIZES.MEDIUM, debug)
 		ASTEROID_SIZES.MEDIUM:
+			GameManager.add_score(2)
 			GameManager.main.camera_shake(camera_shake_intensity * SCALE.MEDIUM)
-			GameManager.spawn_asteroid(global_position, ASTEROID_SIZES.SMALL, debug)
-			GameManager.spawn_asteroid(global_position, ASTEROID_SIZES.SMALL, debug)
+			GameManager.main.spawn_asteroid(global_position, ASTEROID_SIZES.SMALL, debug)
+			GameManager.main.spawn_asteroid(global_position, ASTEROID_SIZES.SMALL, debug)
 		ASTEROID_SIZES.SMALL:
+			GameManager.add_score(3)
 			GameManager.main.camera_shake(camera_shake_intensity * SCALE.SMALL)
-			GameManager.spawn_asteroid(false, ASTEROID_SIZES.LARGE, debug)
-			
+			GameManager.main.spawn_asteroid(false, ASTEROID_SIZES.LARGE, debug)
+	
+
+func play_audio():
+	explosion_audio.pitch_scale = randf_range(0.5, 1.5)
+	explosion_audio.play()
+	
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	wrap_around_viewport()
 	
