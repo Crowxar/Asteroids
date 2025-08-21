@@ -9,6 +9,8 @@ var player_score: int
 var player_high_score: int
 var original_high_score: int
 var new_high_score: bool = false
+
+var save_manager
 var config_handler
 var ui_scene
 var main
@@ -25,10 +27,15 @@ enum DIFFICULTY {
 var game_difficulty = DIFFICULTY.EASY
 
 func _ready() -> void:
-	original_high_score = config_handler.load_high_score()
 	player_health = 3
 	player_score = 0
 	player_high_score = original_high_score
+
+func _load_data():
+	pass
+	
+func _save_game():
+	pass
 
 func spawn_vfx(vfxToSpawn: Resource, position: Vector2, rotation):
 	var vfx_instance = vfxToSpawn.instantiate()

@@ -1,4 +1,4 @@
-class_name SaveData extends Resource
+class_name OldSaveData extends Resource
 
 @export var player_name : String = "Thomas"
 @export var level : int = 1
