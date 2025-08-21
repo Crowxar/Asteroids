@@ -1,0 +1,103 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxerwaf0qyis2"]
+
+[ext_resource type="Script" uid="uid://by05exgv6ylxj" path="res://game.gd" id="1_80nbo"]
+
+[node name="UI" type="Control" node_paths=PackedStringArray("coins_label", "increase", "decrease", "save", "load", "add_health", "sub_health", "health")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_80nbo")
+coins_label = NodePath("Coins")
+increase = NodePath("Increase")
+decrease = NodePath("Decrease")
+save = NodePath("Save")
+load = NodePath("Load")
+add_health = NodePath("AddHealth")
+sub_health = NodePath("SubHealth")
+health = NodePath("Health")
+
+[node name="Coins" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 51
+text = "Coins: 0"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 182.0
+offset_right = 631.0
+offset_bottom = 273.0
+theme_override_font_sizes/font_size = 66
+text = "Game"
+
+[node name="Increase" type="Button" parent="."]
+layout_mode = 0
+offset_left = 668.0
+offset_top = 363.0
+offset_right = 864.0
+offset_bottom = 435.0
+theme_override_font_sizes/font_size = 46
+text = "Increase"
+
+[node name="Decrease" type="Button" parent="."]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 362.0
+offset_right = 499.0
+offset_bottom = 434.0
+theme_override_font_sizes/font_size = 46
+text = "Decrease"
+
+[node name="Save" type="Button" parent="."]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 573.0
+offset_right = 165.0
+offset_bottom = 581.0
+text = "Save"
+
+[node name="Load" type="Button" parent="."]
+layout_mode = 0
+offset_left = 962.0
+offset_top = 568.0
+offset_right = 1008.0
+offset_bottom = 599.0
+text = "Load"
+
+[node name="Health" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 0
+offset_left = 378.0
+offset_top = 568.0
+offset_right = 778.0
+offset_bottom = 595.0
+step = 1.0
+value = 10.0
+
+[node name="AddHealth" type="Button" parent="."]
+layout_mode = 0
+offset_left = 744.0
+offset_top = 505.0
+offset_right = 762.0
+offset_bottom = 536.0
+text = "+"
+
+[node name="SubHealth" type="Button" parent="."]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 509.0
+offset_right = 396.0
+offset_bottom = 540.0
+text = "-"
+
+[connection signal="pressed" from="Increase" to="." method="_on_increase_pressed"]
+[connection signal="pressed" from="Decrease" to="." method="_on_decrease_pressed"]
+[connection signal="pressed" from="Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="AddHealth" to="." method="_on_add_health_pressed"]
+[connection signal="pressed" from="SubHealth" to="." method="_on_sub_health_pressed"]
